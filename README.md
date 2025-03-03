@@ -43,12 +43,3 @@ Sigue estos pasos para ejecutar el bloc de notas en tu máquina:
   ```bash
   cd backend
   node service.js
-
-**Verás un mensaje en la terminal que indica que el servidor está corriendo:**
-  Servidor backend corriendo en http://localhost:5000
-
-4. **Abre la aplicación**:
-  ```bash
-  Una vez que el servidor esté en funcionamiento, abre tu navegador y visita:
-  http://localhost:5000
-  ¡Listo! Ahora deberías ver la aplicación de bloc de notas en tu navegador.
