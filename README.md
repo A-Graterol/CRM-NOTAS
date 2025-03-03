@@ -28,14 +28,14 @@ Sigue estos pasos para instalar y ejecutar el proyecto en tu máquina local:
    git clone https://github.com/tu-usuario/CRM-NOTAS.git
    cd CRM-NOTAS
 
-Configura el backend:
-cd backend
+2. Configura el backend:
+  
+  cd backend
+  npm install
+  npm start
 
-npm install
-npm start
+3. Configura el frontend:
 
-Configura el frontend:
-
-cd frontend
-npm install
-npm start
+  cd frontend
+  npm install
+  npm start
