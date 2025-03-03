@@ -33,3 +33,22 @@ Sigue estos pasos para ejecutar el bloc de notas en tu máquina:
    ```bash
    git clone https://github.com/tu-usuario/tu-repositorio.git
    cd tu-repositorio
+
+2. **Instala las dependencias**:
+  ```bash
+  npm install
+  Esto instalará todas las librerías y paquetes necesarios para que el proyecto funcione.
+
+3. **Inicia el servidor**:
+  ```bash
+  cd backend
+  node service.js
+
+**Verás un mensaje en la terminal que indica que el servidor está corriendo:**
+  Servidor backend corriendo en http://localhost:5000
+
+4. **Abre la aplicación**:
+  ```bash
+  Una vez que el servidor esté en funcionamiento, abre tu navegador y visita:
+  http://localhost:5000
+  ¡Listo! Ahora deberías ver la aplicación de bloc de notas en tu navegador.
