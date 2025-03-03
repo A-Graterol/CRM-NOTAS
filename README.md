@@ -33,3 +33,6 @@ Sigue estos pasos para ejecutar el bloc de notas en tu máquina:
    ```bash
    git clone https://github.com/tu-usuario/tu-repositorio.git
    cd tu-repositorio
+   
+     ![Tema claro](screenshots/light-theme.png)
+     ![Tema oscuro](screenshots/dark-theme.png)
