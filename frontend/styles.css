@@ -334,19 +334,19 @@ button:active {
 }
 
 .note-category.personal::before {
-  background-image: url('../icons/personal.png');
+  background-image: url('static/icons/personal.png');
 }
 
 .note-category.aprendizaje::before {
-  background-image: url('../icons/aprendizaje.png');
+  background-image: url('static/icons/aprendizaje.png');
 }
 
-.note-category.programas::before {
-  background-image: url('../icons/programas.png');
+.note-category.creación-de-programas::before {
+  background-image: url('static/icons/programas.png');
 }
 
 .note-category.juegos::before {
-  background-image: url('../icons/juegos.png');
+  background-image: url('static/icons/juegos.png');
 }
 
 /* Notas importantes */
