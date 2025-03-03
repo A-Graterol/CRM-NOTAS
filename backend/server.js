@@ -30,7 +30,13 @@ const db = new sqlite3.Database('./database.db', (err) => {
   `);
 });
 
-// Obtener todas las notas
+// Middleware para manejar errores de la base de datos
+const handleDatabaseError = (err, res) => {
+  console.error('Error en la base de datos:', err);
+  res.status(500).json({ error: 'Error en la base de datos' });
+};
+
+// Obtener todas las notas con filtros opcionales
 app.get('/api/notes', (req, res) => {
   const { category, important } = req.query;
   let query = 'SELECT * FROM notes';
@@ -46,10 +52,7 @@ app.get('/api/notes', (req, res) => {
   }
 
   db.all(query, params, (err, rows) => {
-    if (err) {
-      console.error('Error al obtener las notas:', err);
-      return res.status(500).json({ error: 'Error al obtener las notas' });
-    }
+    if (err) return handleDatabaseError(err, res);
     res.json(rows);
   });
 });
@@ -57,34 +60,30 @@ app.get('/api/notes', (req, res) => {
 // Guardar una nueva nota
 app.post('/api/notes', (req, res) => {
   const { content, category } = req.body;
+
   if (!content || !category) {
-    return res.status(400).json({ error: 'Faltan campos obligatorios' });
+    return res.status(400).json({ error: 'Faltan campos obligatorios: content y category' });
   }
 
   const query = 'INSERT INTO notes (content, category) VALUES (?, ?)';
   db.run(query, [content, category], function (err) {
-    if (err) {
-      console.error('Error al guardar la nota:', err);
-      return res.status(500).json({ error: 'Error al guardar la nota' });
-    }
+    if (err) return handleDatabaseError(err, res);
     res.json({ id: this.lastID, content, category });
   });
 });
 
-// Editar una nota
+// Editar una nota existente
 app.put('/api/notes/:id', (req, res) => {
   const { id } = req.params;
   const { content, category } = req.body;
+
   if (!content || !category) {
-    return res.status(400).json({ error: 'Faltan campos obligatorios' });
+    return res.status(400).json({ error: 'Faltan campos obligatorios: content y category' });
   }
 
   const query = 'UPDATE notes SET content = ?, category = ? WHERE id = ?';
   db.run(query, [content, category, id], (err) => {
-    if (err) {
-      console.error('Error al editar la nota:', err);
-      return res.status(500).json({ error: 'Error al editar la nota' });
-    }
+    if (err) return handleDatabaseError(err, res);
     res.json({ id, content, category });
   });
 });
@@ -92,13 +91,27 @@ app.put('/api/notes/:id', (req, res) => {
 // Eliminar una nota
 app.delete('/api/notes/:id', (req, res) => {
   const { id } = req.params;
+
   const query = 'DELETE FROM notes WHERE id = ?';
   db.run(query, [id], (err) => {
-    if (err) {
-      console.error('Error al eliminar la nota:', err);
-      return res.status(500).json({ error: 'Error al eliminar la nota' });
-    }
+    if (err) return handleDatabaseError(err, res);
     res.json({ message: 'Nota eliminada correctamente' });
+  });
+});
+
+// Actualizar el campo 'important' de una nota
+app.patch('/api/notes/:id/important', (req, res) => {
+  const { id } = req.params;
+  const { important } = req.body;
+
+  if (typeof important !== 'boolean') {
+    return res.status(400).json({ error: 'El campo important debe ser un booleano' });
+  }
+
+  const query = 'UPDATE notes SET important = ? WHERE id = ?';
+  db.run(query, [important, id], (err) => {
+    if (err) return handleDatabaseError(err, res);
+    res.json({ id, important });
   });
 });
 
